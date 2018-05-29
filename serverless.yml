@@ -1,0 +1,85 @@
+# This file is the main config file for your service.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+
+
+service: pytorch-serverless
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+frameworkVersion: ">=1.27.1"
+
+provider:
+  # you can overwrite defaults here
+  name: aws
+  runtime: python3.6
+  stage: dev
+  region: us-west-2
+  profile: slsadmin
+  apiKeys:
+    - ${self:service}_default_${self:provider.stage}
+
+  memorySize: 3008
+  timeout: 300
+
+  # you can define service wide environment variables here
+  environment:
+    BUCKET_NAME: pytorch-lambda-test
+    STATE_DICT_NAME: dogscats-resnext50.h5
+    LABELS_PATH: lib/labels.json
+    IMAGE_SIZE: 224
+
+  # you can define custom configuration variables here
+  variables:
+    api_version: v0.0.1
+
+  # you can add statements to the Lambda function's IAM Role here
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:ListBucket
+      Resource: 'arn:aws:s3:::*'
+    - Effect: Allow
+      Action:
+        - s3:GetObject
+      Resource: 'arn:aws:s3:::*/*'
+
+# you can add packaging information here
+package:
+  exclude:
+    - package.json
+    - package-lock.json
+    - node_modules/**
+    - test/**
+    - sentnet-env/**
+    - assets/**
+
+# you can define plugins here
+plugins:
+  - serverless-python-requirements
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    zip: true
+
+
+#
+# Define API endpoints
+#
+
+functions:
+  predict:
+    handler: api/predict.handler
+    events:
+      - schedule: rate(10 minutes)
+      - http:
+          method: GET
+          cors: true
+          path: ${self:provider.variables.api_version}/predict
+          private: true
+          request:
+            parameters:
+              querystrings:
+                image_url: true
+                top_k: false

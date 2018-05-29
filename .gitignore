@@ -1,0 +1,32 @@
+# Distribution / packaging
+.DS_Store
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+__pycache__/
+
+# PyCharm directories
+/.idea/
+
+# Node files and directories
+/node_modules/
+/package.json
+/package-lock.json
+
+# Requirements zip
+/.requirements.zip
+
+
+# Serverless directories
+.serverless
