@@ -4,7 +4,6 @@ from .imports import *
 from .core import A, partition
 
 
-
 def scale_min(im, targ, interpolation=cv2.INTER_AREA):
 	""" Scales the image so that the smallest axis is of size targ.
 
@@ -540,7 +539,7 @@ class RandomRotateZoom(CoordTransform):
 		if ps is None: ps = [0.25, 0.25, 0.25, 0.25]
 		assert len(ps) == 4, 'does not have 4 probabilities for p, it has %d'%len(ps)
 		self.transforms = RandomRotate(deg, p=1, mode=mode, tfm_y=tfm_y), RandomZoom(zoom, tfm_y=tfm_y), RandomStretch(
-			stretch, tfm_y=tfm_y)
+				stretch, tfm_y=tfm_y)
 		self.pass_t = PassThru()
 		self.cum_ps = np.cumsum(ps)
 		assert self.cum_ps[3] == 1, 'probabilites do not sum to 1; they sum to %d'%self.cum_ps[3]
@@ -771,7 +770,7 @@ transforms_top_down = transforms_basic+[RandomDihedral()]
 imagenet_stats = A([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 """Statistics pertaining to image data from image net. mean and std of the images of each color channel"""
 inception_stats = A([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
-inception_models = () #(inception_4, inceptionresnet_2)
+inception_models = ()  # (inception_4, inceptionresnet_2)
 
 
 def tfms_from_stats(stats, sz, aug_tfms=None, max_zoom=None, pad=0, crop_type=CropType.RANDOM,
@@ -800,4 +799,3 @@ def tfms_from_model(f_model, sz, aug_tfms=None, max_zoom=None, pad=0, crop_type=
 	stats = inception_stats if f_model in inception_models else imagenet_stats
 	return tfms_from_stats(stats, sz, aug_tfms, max_zoom=max_zoom, pad=pad, crop_type=crop_type,
 	                       tfm_y=tfm_y, sz_y=sz_y, pad_mode=pad_mode, norm_y=norm_y, scale=scale)
-

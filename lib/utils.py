@@ -30,7 +30,7 @@ def open_image_url(url):
 		if im is None: raise OSError(f'File from url not recognized by opencv: {url}')
 		return im
 	except Exception as e:
-		raise OSError('Error handling image from url at: {}'.format(url)) from e
+		raise OSError(f'Error handling image from url at: {url}') from e
 
 
 def open_image(fn):

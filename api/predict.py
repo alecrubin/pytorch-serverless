@@ -62,11 +62,10 @@ def predict(img):
 def handler(event, _):
 	if event is None: event = {}
 	print(event)
-	# keep the lambda function warm
-	if event.get('source') is 'aws.events':
-		return 'nice & warm'
-
 	try:
+		# keep the lambda function warm
+		if event.get('detail-type') is 'Scheduled Event': return 'nice & warm'
+
 		params = parse_params(event.get('queryStringParameters', {}))
 
 		out = predict(open_image_url(params['image_url']))
@@ -74,8 +73,8 @@ def handler(event, _):
 
 		logs, idxs = (t.data.numpy()[-1] for t in top)
 		probs = np.exp(logs)
-
 		preds = [build_pred(idx, logs[i], probs[i]) for i, idx in enumerate(idxs)]
+
 		response_body = dict(predictions=preds)
 		response = dict(statusCode=200, body=response_body)
 
