@@ -17,6 +17,7 @@ provider:
   stage: dev
   region: us-west-2
   profile: slsadmin
+  # you can define API keys to generate here
   apiKeys:
     - ${self:service}_default_${self:provider.stage}
 
@@ -51,9 +52,7 @@ package:
     - package.json
     - package-lock.json
     - node_modules/**
-    - test/**
-    - sentnet-env/**
-    - assets/**
+    - tests/**
 
 # you can define plugins here
 plugins:
@@ -72,12 +71,12 @@ functions:
   predict:
     handler: api/predict.handler
     events:
-      - schedule: rate(10 minutes)
+      - schedule: rate(10 minutes) # set CloudWatch function to keep lambda warm
       - http:
           method: GET
           cors: true
           path: ${self:provider.variables.api_version}/predict
-          private: true
+          private: true # authorize endpoint with `x-api-key` header
           request:
             parameters:
               querystrings:
