@@ -1,8 +1,8 @@
-import os, json, collections
+import os, json
 
 
 with open(os.environ['LABELS_PATH']) as f:
-	d = dict(map(lambda k: (int(k[0]), k[1]), json.loads(f.read()).items()))
+	idx_labels = [(int(i[0]), i[1]) for i in json.loads(f.read()).items()]
 	f.close()
 
-label_dict = collections.OrderedDict(sorted(d.items(), key=lambda i: i[0]))
+label_dict = dict(sorted(idx_labels, key=lambda i: i[0]))

@@ -1,5 +1,5 @@
 # PyTorch Serverless
-PyTorch Serverless production API (w/ AWS Lambda)
+PyTorch Serverless API (w/ AWS Lambda)
 
 ## Setup
  - Install [Serverless Framework](https://serverless.com/) via npm
@@ -14,5 +14,5 @@ PyTorch Serverless production API (w/ AWS Lambda)
 ## Deployment
 Deploy to AWS Lambda
 ```
-sls deploy -v
+sls -v deploy
 ```
