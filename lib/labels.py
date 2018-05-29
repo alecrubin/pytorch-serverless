@@ -1,6 +1,7 @@
 import os, json, collections
 
-with open('lib/labels.json') as f:
+
+with open(os.environ['LABELS_PATH']) as f:
 	d = dict(map(lambda k: (int(k[0]), k[1]), json.loads(f.read()).items()))
 	f.close()
 
