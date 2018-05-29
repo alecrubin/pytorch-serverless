@@ -72,7 +72,7 @@ def handler(event, _):
 		out = predict(open_image_url(params['image_url']))
 		top = out.topk(params.get('top_k'), sorted=True)
 
-		idxs, logs = (o.data.numpy()[-1] for o in reversed(top))
+		logs, idxs = (t.data.numpy()[-1] for t in top)
 		probs = np.exp(logs)
 
 		preds = [build_pred(idx, logs[i], probs[i]) for i, idx in enumerate(idxs)]
