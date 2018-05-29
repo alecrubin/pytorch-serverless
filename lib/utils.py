@@ -3,8 +3,6 @@ import boto3
 import cv2
 import numpy as np
 import urllib.request
-from fastai.transforms import tfms_from_stats
-from fastai.core import A
 
 
 s3_client = boto3.client('s3')
