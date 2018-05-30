@@ -3,7 +3,6 @@
 # For full config options, check the docs:
 #    docs.serverless.com
 
-
 service: pytorch-serverless
 
 # You can pin your service to only deploy with a specific Serverless version
@@ -17,12 +16,12 @@ provider:
   stage: dev
   region: us-west-2
   profile: slsadmin
+  memorySize: 3008
+  timeout: 300
   # you can define API keys to generate here
   apiKeys:
     - ${self:service}_default_${self:provider.stage}
 
-  memorySize: 3008
-  timeout: 300
 
   # you can define service wide environment variables here
   environment:

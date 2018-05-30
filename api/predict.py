@@ -64,7 +64,8 @@ def handler(event, _):
 	print(event)
 	try:
 		# keep the lambda function warm
-		if event.get('detail-type') is 'Scheduled Event': return 'nice & warm'
+		if event.get('detail-type') == 'Scheduled Event':
+			return 'nice & warm'
 
 		params = parse_params(event.get('queryStringParameters', {}))
 
