@@ -23,7 +23,6 @@ PyTorch Serverless API (w/ AWS Lambda)
         "1": "dog"
     } 
     ```
-    
 - Setup an [AWS CLI profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-multiple-profiles.html) if you 
 don't have one already
  
@@ -62,7 +61,10 @@ profile can access and upload your state dictionary
             ### set this to your api version
             api_version: v0.0.1
     ```
- 
+
+- You'll need to have [Docker](https://docs.docker.com/install/) running on your machine. If you don't want to 
+use Docker, you can just remove `dockerizePip: true` from the `serverless.yml`
+
 ## Endpoints
 
 #### **GET** `/predict`
