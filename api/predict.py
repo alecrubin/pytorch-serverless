@@ -18,10 +18,11 @@ BUCKET_NAME = os.environ['BUCKET_NAME']
 STATE_DICT_NAME = os.environ['STATE_DICT_NAME']
 STATS = A(*eval(os.environ['IMAGE_STATS']))
 SZ = int(os.environ['IMAGE_SIZE'])
+LABELS_PATH = os.environ['LABELS_PATH']
 
 class SetupModel(object):
 	model = classification_model()
-	labels = get_labels(os.environ['LABELS_PATH'])
+	labels = get_labels(LABELS_PATH)
 	tfms = tfms_from_stats(STATS, SZ)[-1]
 
 	def __init__(self, f):

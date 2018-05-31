@@ -51,8 +51,11 @@ package:
   exclude:
     - package.json
     - package-lock.json
+    - README.md
     - node_modules/**
     - tests/**
+    - .DS_Store
+    - .idea/**
 
 # you can define plugins here
 plugins:
@@ -76,7 +79,7 @@ functions:
           method: GET
           cors: true
           path: ${self:provider.variables.api_version}/predict
-          private: true # authorize endpoint with `x-api-key` header
+          private: true # authorize endpoint with `X-API-KEY` header
           request:
             parameters:
               querystrings:

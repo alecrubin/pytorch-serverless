@@ -1,7 +1,10 @@
 # PyTorch Serverless
+
 [Fast.ai](http://www.fast.ai) PyTorch Serverless API (w/ AWS Lambda)
 
+
 ## Setup
+
 - Install [Serverless Framework](https://serverless.com/) via npm
     ```
     npm i -g serverless@v1.27.3
@@ -12,7 +15,9 @@
     sls plugin install -n serverless-python-requirements
     ```
     
+
 ## Configuration
+
 - Setup your model in `lib/models.py` so that it can be imported by the handler in `api/predict.py` as a method
  
 - Define your class labels in `lib/labels.txt` with one label per line, for example:
@@ -63,8 +68,9 @@ profile can access and upload your state dictionary
             api_version: v0.0.1
     ```
 
-- You'll need to have [Docker](https://docs.docker.com/install/) running on your machine. If you don't want to 
-use Docker, you can just remove `dockerizePip: true` from the `serverless.yml`
+- You'll need to have [Docker](https://docs.docker.com/install/) running on your machine when deploying. If you 
+don't want to use Docker, you can just remove `dockerizePip: true` from the `serverless.yml`
+
 
 ## Endpoints
 
@@ -115,15 +121,26 @@ Return prediction for a single image.
     }
     ```
 
+
 ## Invoke Local
+
 Run function locally with params defined in `tests/predict_event.json`
 ```
 AWS_PROFILE=yourProfile sls invoke local -f predict -p tests/predict_event.json
 ```
 
+
 ## Deployment
+
 Deploy to AWS Lambda
 ```
 sls -v deploy
 ```
 
+
+## Logs
+
+Tail logs to console
+```
+sls logs -f predict -t
+```
