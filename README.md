@@ -1,5 +1,5 @@
 # PyTorch Serverless
-PyTorch Serverless API (w/ AWS Lambda)
+[Fast.ai](http://www.fast.ai) PyTorch Serverless API (w/ AWS Lambda)
 
 ## Setup
 - Install [Serverless Framework](https://serverless.com/) via npm
@@ -12,17 +12,15 @@ PyTorch Serverless API (w/ AWS Lambda)
     sls plugin install -n serverless-python-requirements
     ```
     
-    
 ## Configuration
 - Setup your model in `lib/models.py` so that it can be imported by the handler in `api/predict.py` as a method
  
-- Define your class labels in `lib/labels.json`, for example:
+- Define your class labels in `lib/labels.txt` with one label per line, for example:
     ```
-    {
-        "0": "cat",
-        "1": "dog"
-    } 
+    cat
+    dog
     ```
+    
 - Setup an [AWS CLI profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-multiple-profiles.html) if you 
 don't have one already
  
@@ -55,6 +53,9 @@ profile can access and upload your state dictionary
             
             ### set this to your input image size
             IMAGE_SIZE: 224
+            
+            ### set this to your image normalization stats
+            IMAGE_STATS: ([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
             ...
          
         variables:
@@ -86,7 +87,6 @@ Return prediction for a single image.
     top_k=[integer]   ### Number of top results to return (default: 3)
     ```
     
-        
 - **Success Response (200)**
     ```
     {
@@ -111,7 +111,7 @@ Return prediction for a single image.
     ```
     {
         "error": "Something went wrong...",
-        "trackback": "..."
+        "traceback": "..."
     }
     ```
 

@@ -1,5 +1,6 @@
 {
   "queryStringParameters": {
-    "image_url": "https://i.ytimg.com/vi/SfLV8hD7zX4/maxresdefault.jpg"
+    "image_url": "https://i.ytimg.com/vi/SfLV8hD7zX4/maxresdefault.jpg",
+    "top_k": 3
   }
 }

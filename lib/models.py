@@ -1,10 +1,10 @@
 from fastai.conv_builder import *
-from lib.labels import label_dict
+from lib.utils import get_labels
 
 
-def classification_model(arch=None, **kwargs):
+def classification_model(arch=resnext50, **kwargs):
 	opts = dict(is_multi=False, is_reg=False, pretrained=False)
-	if arch is None: arch = resnext50
-	conv = ConvnetBuilder(arch, len(label_dict.values()), **opts, **kwargs)
+	n_labels = len(get_labels(os.environ['LABELS_PATH']))
+	conv = ConvnetBuilder(arch, n_labels, **opts, **kwargs)
 	conv.model.eval()
 	return conv.model

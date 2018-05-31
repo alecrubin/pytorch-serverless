@@ -28,7 +28,8 @@ provider:
     BUCKET_NAME: pytorch-serverless
     STATE_DICT_NAME: dogscats-resnext50.h5
     IMAGE_SIZE: 224
-    LABELS_PATH: lib/labels.json
+    IMAGE_STATS: ([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    LABELS_PATH: lib/labels.txt
 
   # you can define custom configuration variables here
   variables:

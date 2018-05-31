@@ -9,22 +9,19 @@ import torch
 import numpy as np
 
 from lib.models import classification_model
-from lib.labels import label_dict
-from lib.utils import download_file, open_image_url
+from lib.utils import download_file, get_labels, open_image_url
 from fastai.core import A, T, VV_
 from fastai.transforms import tfms_from_stats
 
 
 BUCKET_NAME = os.environ['BUCKET_NAME']
 STATE_DICT_NAME = os.environ['STATE_DICT_NAME']
-
-STATS = A([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+STATS = A(*eval(os.environ['IMAGE_STATS']))
 SZ = int(os.environ['IMAGE_SIZE'])
-
 
 class SetupModel(object):
 	model = classification_model()
-	labels = list(label_dict.values())
+	labels = get_labels(os.environ['LABELS_PATH'])
 	tfms = tfms_from_stats(STATS, SZ)[-1]
 
 	def __init__(self, f):
@@ -32,8 +29,7 @@ class SetupModel(object):
 		file_path = f'/tmp/{STATE_DICT_NAME}'
 		download_file(BUCKET_NAME, STATE_DICT_NAME, file_path)
 		state_dict = torch.load(file_path, map_location=lambda storage, loc: storage)
-		self.model.load_state_dict(state_dict)
-		self.model.eval()
+		self.model.load_state_dict(state_dict), self.model.eval()
 		os.remove(file_path)
 
 	def __call__(self, *args, **kwargs):
@@ -49,7 +45,8 @@ def parse_params(params):
 	image_url = urllib.parse.unquote_plus(params.get('image_url', ''))
 	n_labels = len(SetupModel.labels)
 	top_k = int(params.get('top_k', 3))
-	return dict(image_url=image_url, top_k=min(max(top_k, 1), n_labels))
+	if top_k < 1: top_k = n_labels
+	return dict(image_url=image_url, top_k=min(top_k, n_labels))
 
 
 def predict(img):
