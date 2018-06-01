@@ -47,6 +47,12 @@ profile can access and upload your state dictionary
         
         ### set this to your aws profile
         profile: slsadmin
+        
+        ### set this as needed between 128 - 3008, in 64mb intervals
+        memorySize: 1280
+        
+        ### set this as needed (max 300)
+        timeout: 75
         ...
         
         environment:
@@ -90,7 +96,7 @@ Return prediction for a single image.
     image_url=[url]   ### URL of image to classify
     
     (optional)
-    top_k=[integer]   ### Number of top results to return (default: 3)
+    top_k=[integer]   ### Number of top results (default: 3)
     ```
     
 - **Success Response (200)**

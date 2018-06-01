@@ -16,8 +16,8 @@ provider:
   stage: dev
   region: us-west-2
   profile: slsadmin
-  memorySize: 3008
-  timeout: 300
+  memorySize: 1280
+  timeout: 75
   # you can define API keys to generate here
   apiKeys:
     - ${self:service}_default_${self:provider.stage}
@@ -40,7 +40,7 @@ provider:
     - Effect: Allow
       Action:
         - s3:ListBucket
-      Resource: 'arn:aws:s3:::*'
+      Resource: 'arn:aws:s3:::**'
     - Effect: Allow
       Action:
         - s3:GetObject
@@ -74,7 +74,7 @@ functions:
   predict:
     handler: api/predict.handler
     events:
-      - schedule: rate(10 minutes) # set CloudWatch function to keep lambda warm
+      - schedule: rate(15 minutes) # set CloudWatch function to keep lambda warm
       - http:
           method: GET
           cors: true

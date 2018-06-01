@@ -18,12 +18,12 @@ BUCKET_NAME = os.environ['BUCKET_NAME']
 STATE_DICT_NAME = os.environ['STATE_DICT_NAME']
 STATS = A(*eval(os.environ['IMAGE_STATS']))
 SZ = int(os.environ['IMAGE_SIZE'])
-LABELS_PATH = os.environ['LABELS_PATH']
+TFMS = tfms_from_stats(STATS, SZ)[-1]
+
 
 class SetupModel(object):
 	model = classification_model()
-	labels = get_labels(LABELS_PATH)
-	tfms = tfms_from_stats(STATS, SZ)[-1]
+	labels = get_labels(os.environ['LABELS_PATH'])
 
 	def __init__(self, f):
 		self.f = f
@@ -51,7 +51,7 @@ def parse_params(params):
 
 
 def predict(img):
-	batch = [T(SetupModel.tfms(img))]
+	batch = [T(TFMS(img))]
 	inp = VV_(torch.stack(batch))
 	return SetupModel.model(inp)
 
