@@ -16,8 +16,8 @@ provider:
   stage: dev
   region: us-west-2
   profile: slsadmin
-  memorySize: 1280
-  timeout: 75
+  memorySize: 2048
+  timeout: 120
   # you can define API keys to generate here
   apiKeys:
     - ${self:service}_default_${self:provider.stage}

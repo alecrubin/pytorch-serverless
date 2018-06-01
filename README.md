@@ -49,10 +49,10 @@ profile can access and upload your state dictionary
         profile: slsadmin
         
         ### set this as needed between 128 - 3008, in 64mb intervals
-        memorySize: 1280
+        memorySize: 2048
         
         ### set this as needed (max 300)
-        timeout: 75
+        timeout: 100
         ...
         
         environment:
