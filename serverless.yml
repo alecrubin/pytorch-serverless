@@ -40,11 +40,11 @@ provider:
     - Effect: Allow
       Action:
         - s3:ListBucket
-      Resource: 'arn:aws:s3:::**'
+      Resource: 'arn:aws:s3:::*'
     - Effect: Allow
       Action:
         - s3:GetObject
-      Resource: 'arn:aws:s3:::*/*'
+      Resource: 'arn:aws:s3:::*/**'
 
 # you can add packaging information here
 package:

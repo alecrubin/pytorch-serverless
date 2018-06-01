@@ -52,7 +52,7 @@ profile can access and upload your state dictionary
         memorySize: 2048
         
         ### set this as needed (max 300)
-        timeout: 100
+        timeout: 120
         ...
         
         environment:
