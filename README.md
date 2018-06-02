@@ -140,7 +140,7 @@ AWS_PROFILE=yourProfile sls invoke local -f predict -p tests/predict_event.json
 
 Deploy to AWS Lambda
 ```
-sls -v deploy
+sls deploy -v
 ```
 
 
