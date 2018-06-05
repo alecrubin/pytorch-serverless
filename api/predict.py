@@ -66,9 +66,9 @@ def handler(event, _):
 			return 'nice & warm'
 
 		params = parse_params(event.get('queryStringParameters', {}))
-
 		out = predict(open_image_url(params['image_url']))
 		top = out.topk(params.get('top_k'), sorted=True)
+
 		logs, idxs = (t.data.numpy() for t in top)
 		probs = np.exp(logs)
 		preds = [build_pred(idx, logs[i], probs[i]) for i, idx in enumerate(idxs)]
