@@ -17,7 +17,7 @@ from fastai.transforms import tfms_from_stats
 BUCKET_NAME = os.environ['BUCKET_NAME']
 STATE_DICT_NAME = os.environ['STATE_DICT_NAME']
 STATS = A(*eval(os.environ['IMAGE_STATS']))
-SZ = int(os.environ['IMAGE_SIZE'])
+SZ = int(os.environ.get('IMAGE_SIZE', '224'))
 TFMS = tfms_from_stats(STATS, SZ)[-1]
 
 
@@ -53,7 +53,7 @@ def parse_params(params):
 def predict(img):
 	batch = [T(TFMS(img))]
 	inp = VV_(torch.stack(batch))
-	return SetupModel.model(inp)
+	return SetupModel.model(inp).mean(0)
 
 
 @SetupModel
@@ -69,8 +69,7 @@ def handler(event, _):
 
 		out = predict(open_image_url(params['image_url']))
 		top = out.topk(params.get('top_k'), sorted=True)
-
-		logs, idxs = (t.data.numpy()[-1] for t in top)
+		logs, idxs = (t.data.numpy() for t in top)
 		probs = np.exp(logs)
 		preds = [build_pred(idx, logs[i], probs[i]) for i, idx in enumerate(idxs)]
 

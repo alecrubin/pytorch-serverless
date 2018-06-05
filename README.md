@@ -1,6 +1,6 @@
 # PyTorch Serverless
 
-[Fast.ai](http://www.fast.ai) PyTorch Serverless API (w/ AWS Lambda)
+[FastAI](http://www.fast.ai) PyTorch Serverless API (w/ AWS Lambda)
 
 
 ## Setup
