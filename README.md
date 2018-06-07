@@ -78,6 +78,22 @@ profile can access and upload your state dictionary
 don't want to use Docker, you can just remove `dockerizePip: true` from the `serverless.yml`
 
 
+## Invoke Local
+
+Run function locally with params defined in `tests/predict_event.json`
+```
+AWS_PROFILE=yourProfile sls invoke local -f predict -p tests/predict_event.json
+```
+
+
+## Deployment
+
+Deploy to AWS Lambda
+```
+sls deploy -v
+```
+
+
 ## Endpoints
 
 #### **GET** `/predict`
@@ -126,23 +142,7 @@ Return prediction for a single image.
         "traceback": "..."
     }
     ```
-
-
-## Invoke Local
-
-Run function locally with params defined in `tests/predict_event.json`
-```
-AWS_PROFILE=yourProfile sls invoke local -f predict -p tests/predict_event.json
-```
-
-
-## Deployment
-
-Deploy to AWS Lambda
-```
-sls deploy -v
-```
-
+    
 
 ## Logs
 
