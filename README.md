@@ -74,9 +74,6 @@ profile can access and upload your state dictionary
             api_version: v0.0.1
     ```
 
-- You'll need to have [Docker](https://docs.docker.com/install/) running on your machine when deploying. If you 
-don't want to use Docker, you can just remove `dockerizePip: true` from the `serverless.yml`
-
 
 ## Invoke Local
 
@@ -87,6 +84,8 @@ AWS_PROFILE=yourProfile sls invoke local -f predict -p tests/predict_event.json
 
 
 ## Deployment
+
+*Make sure [Docker](https://docs.docker.com/install/) is running on your local machine*
 
 Deploy to AWS Lambda
 ```
