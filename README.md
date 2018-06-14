@@ -85,7 +85,7 @@ AWS_PROFILE=yourProfile sls invoke local -f predict -p tests/predict_event.json
 
 ## Deployment
 
-*Make sure [Docker](https://docs.docker.com/install/) is running on your local machine*
+**_Make sure [Docker](https://docs.docker.com/install/) is running_**
 
 Deploy to AWS Lambda
 ```
