@@ -14,7 +14,7 @@
     ```
     sls plugin install -n serverless-python-requirements
     ```
-    
+
 
 ## Configuration
 
@@ -85,7 +85,7 @@ AWS_PROFILE=yourProfile sls invoke local -f predict -p tests/predict_event.json
 
 ## Deployment
 
-**_Make sure [Docker](https://docs.docker.com/install/) is running_**
+**Make sure [Docker](https://docs.docker.com/install/) is running**
 
 Deploy to AWS Lambda
 ```
